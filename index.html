@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Purwarupa Voucher Kas Keluar</title>
+<style>
+:root{font-family:Arial,sans-serif;color:#172033;background:#f4f6fa}
+body{margin:0;padding:24px}.wrap{max-width:1000px;margin:auto}
+h1{font-size:26px}.card{background:white;border:1px solid #dce2eb;border-radius:12px;padding:20px;margin:14px 0}
+label{display:block;font-size:13px;font-weight:bold;margin:8px 0 5px}
+input,select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #c8d0dd;border-radius:7px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{padding:8px;border-bottom:1px solid #e2e7ef;text-align:left}
+td input{min-width:80px}.totals{display:flex;gap:18px;flex-wrap:wrap;font-weight:bold;margin:15px 0}
+.status{padding:10px;border-radius:8px;background:#fff1d6;color:#7a4b00}
+.status.ok{background:#dcfce7;color:#166534}.status.bad{background:#fee2e2;color:#991b1b}
+button{border:0;padding:11px 16px;border-radius:8px;background:#2563eb;color:white;font-weight:bold;cursor:pointer}
+button:disabled{background:#9ca3af;cursor:not-allowed}.hint{font-size:12px;color:#64748b}
+@media(max-width:650px){.grid{grid-template-columns:1fr}body{padding:12px}}
+</style>
+</head>
+<body><div class="wrap">
+<h1>Voucher Entri Transaksi Kas Keluar</h1>
+<p>Purwarupa antarmuka — validasi seimbang dilakukan di browser dan wajib diulang di backend/database.</p>
+<div class="card">
+<div class="grid">
+<div><label>Nomor Voucher</label><input id="voucher" value="KK-2026-001"></div>
+<div><label>Tanggal</label><input id="date" type="date" value="2026-10-13"></div>
+</div>
+<label>Deskripsi</label><input id="description" value="Pembayaran beban operasional">
+</div>
+<div class="card">
+<h3>Baris Jurnal</h3>
+<table><thead><tr><th>Akun</th><th>Debit (Rp)</th><th>Kredit (Rp)</th><th></th></tr></thead>
+<tbody id="lines"></tbody></table>
+<p><button type="button" id="add">+ Tambah Baris</button></p>
+<div class="totals"><span id="debitTotal">Total Debit: Rp 0</span><span id="creditTotal">Total Kredit: Rp 0</span></div>
+<div id="status" class="status">Belum seimbang — tombol posting dinonaktifkan.</div>
+<p class="hint">Demo ini belum menyimpan data ke Supabase. Hubungkan endpoint backend sebelum digunakan nyata.</p>
+<button id="submit" disabled>Submit &amp; Posting</button>
+</div>
+<div class="card"><h3>Audit Trail (demo)</h3><p id="audit">Belum ada aktivitas.</p></div>
+</div>
+<script>
+const tbody=document.querySelector('#lines');
+const money=n=>'Rp '+Number(n).toLocaleString('id-ID');
+function addLine(account='',debit=0,credit=0){
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td><input class="account" placeholder="Contoh: Beban Operasional" value="${account}"></td>
+ <td><input class="debit" type="number" min="0" step="0.01" value="${debit}"></td>
+ <td><input class="credit" type="number" min="0" step="0.01" value="${credit}"></td>
+ <td><button type="button" class="remove">Hapus</button></td>`;
+ tbody.appendChild(tr);
+ tr.querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>{ 
+   if(el.classList.contains('debit') && Number(el.value)>0) tr.querySelector('.credit').value=0;
+   if(el.classList.contains('credit') && Number(el.value)>0) tr.querySelector('.debit').value=0;
+   update();
+ }));
+ tr.querySelector('.remove').addEventListener('click',()=>{tr.remove();update()});
+ update();
+}
+function update(){
+ let d=0,c=0,valid=true;
+ [...tbody.querySelectorAll('tr')].forEach(tr=>{
+  const a=tr.querySelector('.account').value.trim();
+  const dv=Number(tr.querySelector('.debit').value)||0, cr=Number(tr.querySelector('.credit').value)||0;
+  d+=dv;c+=cr;if(!a || dv<0 || cr<0 || (dv===0&&cr===0) || (dv>0&&cr>0)) valid=false;
+ });
+ document.querySelector('#debitTotal').textContent='Total Debit: '+money(d);
+ document.querySelector('#creditTotal').textContent='Total Kredit: '+money(c);
+ const ok=valid && tbody.children.length>=2 && d>0 && Math.abs(d-c)<0.005;
+ const s=document.querySelector('#status');s.className='status '+(ok?'ok':'bad');
+ s.textContent=ok?'SEIMBANG — selisih '+money(d-c):'Belum valid/seimbang — tombol posting dinonaktifkan.';
+ document.querySelector('#submit').disabled=!ok;
+}
+document.querySelector('#add').addEventListener('click',()=>addLine());
+document.querySelector('#submit').addEventListener('click',()=>{
+ const now=new Date().toISOString();
+ document.querySelector('#audit').textContent='Demo: '+now+' — voucher '+document.querySelector('#voucher').value+
+ ' divalidasi di browser. Belum dikirim ke database.';
+ alert('Validasi antarmuka lolos. Implementasikan POST ke backend dan validasi ulang di database sebelum posting.');
+});
+addLine('Beban Operasional',100000,0);addLine('Kas/Bank',0,100000);
+</script></body></html>

@@ -1,0 +1,60 @@
+Buatkan sebuah prototipe web aplikasi akuntansi bernama Sistem Bukti Kas Keluar untuk tugas UTS Pengkodean Akuntansi.
+Tujuan aplikasi adalah mencatat transaksi pengeluaran kas dengan sistem jurnal debit dan kredit, memvalidasi keseimbangan jurnal secara langsung, serta memperlihatkan status posting dan informasi audit trail.
+Teknologi dan ketentuan:
+- Buat aplikasi web yang dapat dijalankan dan diuji langsung melalui preview Canvas.
+- Gunakan HTML, CSS, dan JavaScript jika memungkinkan agar prototipe mudah dijalankan.
+- Gunakan bahasa Indonesia untuk semua label dan pesan.
+- Gunakan desain yang rapi, sederhana, profesional, dan responsif.
+- Gunakan data demo yang jelas ditandai sebagai data pengujian.
+- Jangan mengklaim bahwa aplikasi terhubung ke PostgreSQL apabila belum benar-benar dibuat integrasinya.
+Fitur yang wajib dibuat:
+1. Formulir bukti kas keluar
+  - Nomor bukti kas keluar.
+  - Tanggal transaksi.
+  - Keterangan transaksi.
+  - Nama atau ID pembuat.
+  - Daftar baris jurnal yang bisa ditambah dan dihapus.
+  - Setiap baris memiliki kode akun, nama akun, keterangan, debit, dan kredit.
+  - Sediakan contoh akun untuk pengujian.
+2. Validasi debit dan kredit secara langsung
+  - Hitung total debit dan total kredit otomatis setiap kali pengguna mengubah nominal.
+  - Tampilkan total debit, total kredit, dan selisihnya.
+  - Tampilkan indikator “SEIMBANG” jika total debit sama dengan total kredit dan total debit lebih besar dari nol.
+  - Tampilkan indikator “TIDAK SEIMBANG” jika total debit dan kredit berbeda.
+  - Setiap baris jurnal harus memiliki nilai debit atau kredit saja, bukan keduanya sekaligus.
+  - Tolak nilai negatif dan masukan nominal yang tidak valid.
+  - Tombol “Submit & Posting” harus nonaktif jika jurnal tidak seimbang, total debit nol, atau ada baris jurnal yang tidak valid.
+  - Tampilkan pesan validasi yang jelas dalam bahasa Indonesia.
+3. Proses posting
+  - Saat tombol ditekan, tampilkan konfirmasi posting.
+  - Jika seluruh validasi terpenuhi, ubah status transaksi dari “DRAFT” menjadi “POSTED”.
+  - Catat waktu posting dan tampilkan hasilnya pada layar.
+  - Setelah berstatus “POSTED”, formulir harus menjadi hanya-baca dan tombol posting tidak boleh digunakan lagi.
+  - Cegah perubahan dan penghapusan transaksi yang sudah diposting melalui mekanisme prototipe.
+  - Jelaskan bahwa penguncian di sisi browser hanya demonstrasi; aplikasi produksi membutuhkan pengamanan di backend/database.
+4. Audit trail
+  - Tampilkan bagian riwayat aktivitas transaksi.
+  - Catat tindakan seperti pembuatan, perubahan data saat masih DRAFT, dan posting.
+  - Tampilkan pengguna, waktu aktivitas, tindakan, dan ringkasan detail.
+  - Tampilkan kolom created_by, created_at, posted_at, dan hash_checksum sebagai ilustrasi informasi audit.
+  - Jangan mengklaim hash_checksum benar-benar aman atau tervalidasi jika belum dihitung dan diverifikasi dengan mekanisme kriptografi yang sesuai.
+5. Daftar transaksi
+  - Tampilkan tabel berisi nomor voucher, tanggal, keterangan, total debit, total kredit, dan status.
+  - Sediakan pencarian berdasarkan nomor voucher.
+  - Sediakan tombol untuk membuka detail transaksi.
+  - Berikan data demo yang dapat digunakan untuk mencoba fitur.
+6. Skenario pengujian
+7. Sediakan cara untuk menguji:
+  - Jurnal seimbang: debit Rp100.000 dan kredit Rp100.000.
+  - Jurnal tidak seimbang: debit Rp100.000 dan kredit Rp80.000.
+  - Jurnal dengan nominal negatif.
+  - Baris yang memiliki debit dan kredit sekaligus.
+  - Percobaan mengubah transaksi setelah berstatus POSTED.
+  - Tampilkan hasil validasi untuk setiap skenario.
+Ketentuan hasil akhir:
+- Berikan aplikasi lengkap, bukan hanya gambar desain atau potongan kode.
+- Pastikan tombol dan interaksi yang ditampilkan benar-benar berfungsi di preview.
+- Gunakan format Rupiah untuk nilai uang.
+- Berikan petunjuk singkat untuk menjalankan aplikasi dan mencoba seluruh skenario.
+- Jangan membuat klaim bahwa prototipe memenuhi PSAK sepenuhnya hanya karena jurnal seimbang.
+- Jelaskan bahwa validasi aturan akuntansi tetap harus diperiksa menggunakan standar resmi yang relevan.

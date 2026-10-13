@@ -1,0 +1,64 @@
+Tinjau rancangan aplikasi Bukti Kas Keluar dan kode validasinya berdasarkan dokumen PSAK/standar akuntansi resmi dan sumber pengendalian internal yang saya unggah ke notebook ini.
+
+
+Gunakan hanya sumber yang tersedia di notebook untuk menyatakan ketentuan standar. Jangan mengarang kutipan, nomor paragraf, halaman, atau persyaratan yang tidak didukung sumber. Jika sumber tidak cukup, nyatakan “belum dapat diverifikasi”.
+
+
+Untuk setiap temuan, berikan:
+
+
+
+Aturan atau ketentuan yang didukung sumber, beserta judul dokumen dan halaman, paragraf, atau rujukan yang dapat diperiksa.
+
+Bagian kode atau fitur aplikasi yang relevan.
+
+Status penilaian: sesuai, tidak sesuai, atau belum cukup bukti.
+
+Alasan penilaian berdasarkan sumber dan bukti implementasi.
+
+Rekomendasi perbaikan yang konkret.
+
+
+Periksa aspek berikut:
+
+
+
+Pengakuan dan pencatatan kas serta setara kas.
+
+Kelengkapan dan keabsahan bukti transaksi pengeluaran kas.
+
+Otorisasi transaksi dan pemisahan tugas.
+
+Validasi keseimbangan total debit dan kredit.
+
+Audit trail, termasuk identitas pengguna, waktu, dan catatan aktivitas.
+
+Penguncian transaksi setelah berstatus POSTED dan mekanisme koreksi.
+
+Integritas checksum jika relevan dengan kode yang tersedia.
+
+
+Bedakan antara ketentuan standar akuntansi, prinsip pengendalian internal, dan rekomendasi teknis sistem. Jangan menganggap suatu fitur telah diterapkan hanya karena fitur tersebut direncanakan.
+
+
+Jika kode atau bukti implementasi belum tersedia di sumber, nyatakan bahwa status implementasinya belum dapat dinilai. Jangan menyimpulkan bahwa aplikasi sepenuhnya mematuhi PSAK hanya karena jurnal seimbang atau transaksi berhasil diposting.
+
+
+Sajikan hasil dalam tabel dengan kolom:
+
+
+
+Aspek yang diperiksa.
+
+Ketentuan dan rujukan sumber.
+
+Bukti kode atau hasil pengujian.
+
+Status penilaian.
+
+Kekurangan atau risiko.
+
+Rekomendasi perbaikan.
+
+
+Akhiri dengan kesimpulan singkat mengenai kontrol yang telah terbukti melalui pengujian, kontrol yang belum tersedia atau belum diuji, dan keterbatasan analisis.
